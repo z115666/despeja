@@ -1,0 +1,5 @@
+pip-audit - 2026-11-12 01:18
+## requirements.txt
+No known vulnerabilities found
+## pythonnet (solo Windows)
+No known vulnerabilities found

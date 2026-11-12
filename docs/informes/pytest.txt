@@ -1,0 +1,33 @@
+Pruebas unitarias - 2026-11-12 01:21 - Python 3.13.16
+============================= test session starts ==============================
+platform linux -- Python 3.13.16, pytest-9.2.0, pluggy-1.7.0 -- venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/claude/Despeja
+plugins: platformdirs-4.14.5
+collecting ... collected 23 items
+
+tests/test_interfaz.py::test_html_autocontenido_y_con_csp PASSED         [  4%]
+tests/test_interfaz.py::test_js_no_usa_innerhtml_con_datos PASSED        [  8%]
+tests/test_registro_api.py::test_cadena_integra_y_detecta_cambios PASSED [ 13%]
+tests/test_registro_api.py::test_cadena_detecta_borrado_de_linea PASSED  [ 17%]
+tests/test_registro_api.py::test_exportar PASSED                         [ 21%]
+tests/test_registro_api.py::test_api_valida_entradas PASSED              [ 26%]
+tests/test_registro_api.py::test_api_papelera_solo_del_ultimo_analisis PASSED [ 30%]
+tests/test_registro_api.py::test_api_analizar_carpeta PASSED             [ 34%]
+tests/test_registro_api.py::test_api_simulacion_registra PASSED          [ 39%]
+tests/test_registro_api.py::test_tipos PASSED                            [ 43%]
+tests/test_seguridad.py::test_dentro_de PASSED                           [ 47%]
+tests/test_seguridad.py::test_ruta_permitida_rechaza_generales_y_protegidas PASSED [ 52%]
+tests/test_seguridad.py::test_raiz_con_enlace_rechazada PASSED           [ 56%]
+tests/test_seguridad.py::test_limpieza_no_sigue_enlaces PASSED           [ 60%]
+tests/test_seguridad.py::test_simular_no_borra PASSED                    [ 65%]
+tests/test_seguridad.py::test_edad_y_patrones PASSED                     [ 69%]
+tests/test_seguridad.py::test_validacion_rechaza_raiz PASSED             [ 73%]
+tests/test_seguridad.py::test_por_defecto_valida_con_bases_reales PASSED [ 78%]
+tests/test_seguridad.py::test_modo_papelera_no_borra_directamente PASSED [ 82%]
+tests/test_seguridad.py::test_nube_nunca_se_borra PASSED                 [ 86%]
+tests/test_seguridad.py::test_expandir_sin_variable_no_devuelve_nada PASSED [ 91%]
+tests/test_seguridad.py::test_catalogo_bien_formado PASSED               [ 95%]
+tests/test_seguridad.py::test_ruta_borrable_usuario PASSED               [100%]
+
+============================== 23 passed in 0.22s ==============================

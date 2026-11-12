@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- RS-12/RS-13: sin red ni recursos externos; solo lo que va dentro de este documento -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; font-src data: 'self'; img-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>Despeja</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+  <nav class="nav" aria-label="Secciones">
+    <div class="marca">
+      <span class="marca-logo" aria-hidden="true"></span>
+      <span class="marca-texto">Despeja</span>
+    </div>
+    <ul class="nav-lista" id="nav"></ul>
+    <div class="nav-pie" id="nav-pie"></div>
+  </nav>
+  <main class="principal">
+    <header class="cabecera">
+      <div>
+        <h1 id="titulo">Resumen</h1>
+        <p class="subtitulo" id="subtitulo"></p>
+      </div>
+      <div class="cabecera-acciones" id="permisos"></div>
+    </header>
+    <section id="vista" class="vista" tabindex="-1"></section>
+  </main>
+</div>
+<dialog id="dialogo" class="dialogo"></dialog>
+<div id="avisos" class="avisos" role="status" aria-live="polite"></div>
+<script src="iconos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

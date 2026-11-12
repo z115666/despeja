@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+build/
+build_*/
+dist/
+dist_*/
+*.spec
+Despeja-Windows.zip
+SHA256SUMS.txt
+.pytest_cache/

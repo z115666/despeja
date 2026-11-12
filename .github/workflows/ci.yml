@@ -1,0 +1,70 @@
+# Integración continua (SDLC): pruebas, SAST y auditoría de dependencias en cada push;
+# compilación en Windows y publicación con hashes al crear una etiqueta v*.
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: read            # mínimo privilegio para el token del flujo
+
+jobs:
+  verificar:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Dependencias
+        run: python -m pip install -r requirements-dev.txt
+      - name: Pruebas unitarias
+        run: python -m pytest -v tests
+      - name: SAST (bandit, severidad media o alta)
+        run: python -m bandit -r despeja app.py -ll
+      - name: Vulnerabilidades en dependencias (pip-audit)
+        run: python -m pip_audit -r requirements.txt
+
+  compilar:
+    needs: verificar
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    permissions:
+      contents: write       # solo este trabajo puede crear la publicación
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dependencias
+        run: python -m pip install -r requirements-dev.txt
+      - name: PyInstaller
+        run: >
+          python -m PyInstaller --noconfirm --clean --windowed --name Despeja --icon icono.ico
+          --version-file version_info.txt
+          --add-data "ui\index.html;ui" --add-data "ui\app.css;ui" --add-data "ui\app.js;ui"
+          --add-data "ui\iconos.js;ui" --add-data "ui\fonts;ui\fonts"
+          --exclude-module tkinter --exclude-module pytest app.py
+      - name: Autotest del ejecutable
+        shell: pwsh
+        run: |
+          $p = Start-Process dist\Despeja\Despeja.exe -ArgumentList "--autotest", "$env:RUNNER_TEMP\at.txt" -Wait -PassThru
+          Get-Content "$env:RUNNER_TEMP\at.txt"
+          if ((Get-Content "$env:RUNNER_TEMP\at.txt" -First 1) -ne "OK") { exit 1 }
+      - name: ZIP y SHA-256
+        shell: pwsh
+        run: |
+          Compress-Archive -Path dist\Despeja -DestinationPath Despeja-Windows.zip
+          Get-FileHash -Algorithm SHA256 Despeja-Windows.zip, dist\Despeja\Despeja.exe |
+            ForEach-Object { $_.Hash.ToLower() + "  " + (Split-Path $_.Path -Leaf) } | Set-Content SHA256SUMS.txt
+          Get-Content SHA256SUMS.txt
+      - name: Publicar
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Despeja-Windows.zip
+            SHA256SUMS.txt
