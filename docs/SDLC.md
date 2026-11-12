@@ -93,7 +93,7 @@ Resultados de la última ejecución en `docs/informes/`:
 - Python 3.12 de 64 bits, dependencias con versión fija.
 - El `.exe` se prueba solo (`--autotest`) antes de empaquetarlo.
 - Se genera `SHA256SUMS.txt` con el hash del ejecutable y del ZIP.
-- GitHub Actions (`ci.yml`) ejecuta pruebas, bandit y pip-audit en cada *push*, y compila en Windows al crear una etiqueta `v*`.
+- GitHub Actions (`ci.yml`) ejecuta pruebas, bandit y pip-audit en Windows en cada *push*. Cuando la versión de `despeja/__init__.py` aún no está publicada, compila el `.exe`, lo prueba, crea la etiqueta `vX.Y.Z` y publica la *release* con el ZIP, los SHA-256 y las notas de `CHANGELOG.md`.
 
 ## 6. Mantenimiento
 - Las vulnerabilidades se notifican según `SECURITY.md`.

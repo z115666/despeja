@@ -48,6 +48,11 @@ python -m pip_audit -r requirements.txt
 ```
 `ui/demo.js` contiene datos de ejemplo para revisar la interfaz en un navegador; no se incluye en el ejecutable.
 
+## Publicar una versión
+1. Sube `VERSION` en `despeja/__init__.py` (y en `version_info.txt`).
+2. Añade sus cambios en `CHANGELOG.md` con el título `## X.Y.Z - fecha`.
+3. Haz *push* a `main`. Si las comprobaciones pasan, GitHub compila, prueba y publica la versión en **Releases** con su ZIP y sus SHA-256.
+
 ## Licencia
 MIT. Iconos [Lucide](https://lucide.dev) (ISC) y tipografía IBM Plex Sans (OFL): ver [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
