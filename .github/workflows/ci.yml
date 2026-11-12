@@ -87,7 +87,8 @@ jobs:
           $cl = Get-Content CHANGELOG.md -Raw
           $m = [regex]::Match($cl, "(?ms)^## $([regex]::Escape($v))[^\n]*\n(.*?)(?=^## |\z)")
           $hashes = (Get-Content SHA256SUMS.txt) -join "`n"
-          $notas = $m.Groups[1].Value.Trim() + "`n`n**SHA-256**`n``````n" + $hashes + "`n``````n`nWindows 10/11 · Requiere Microsoft Edge WebView2 Runtime (incluido en Windows 11)."
+          $f = '```'
+          $notas = $m.Groups[1].Value.Trim() + "`n`n**SHA-256**`n" + $f + "`n" + $hashes + "`n" + $f + "`n`nWindows 10/11 · Requiere Microsoft Edge WebView2 Runtime (incluido en Windows 11)."
           Set-Content -Encoding utf8 NOTAS.md $notas
           Get-Content NOTAS.md
       - name: Publicar
